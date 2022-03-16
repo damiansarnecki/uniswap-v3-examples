@@ -7,6 +7,7 @@ import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 
+
 dotenv.config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -25,19 +26,29 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 const config: HardhatUserConfig = {
   solidity: "0.7.6",
   networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    hardhat: { 
+      forking: {
+        url: "https://matic-mainnet.chainstacklabs.com"
+      }
     },
+
   },
   gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
-    currency: "USD",
-  },
-  etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
-  },
+    enabled: true,
+    currency: "USD"
+  }
 };
+
+module.exports = {
+  solidity: "0.7.6",
+  networks: {
+    hardhat: { 
+      forking: {
+        url: "https://matic-mainnet.chainstacklabs.com"
+      }
+    },
+
+  },
+}
 
 export default config;
